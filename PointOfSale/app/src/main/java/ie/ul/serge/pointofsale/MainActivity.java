@@ -8,13 +8,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView mNameTextView,mQuantityTextView,mDateTextView;
+    private Item mCurrentItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mNameTextView= findViewById(R.id.name_text);
+        mQuantityTextView=findViewById(R.id.quantity_text);
+        mDateTextView=findViewById(R.id.date_text);
+
+
+        //boilerplate content
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -22,14 +32,21 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                mCurrentItem = Item.getDefaultItem();
+                showCurrentItem();
             }
         });
     }
 
+    private void showCurrentItem() {
+        mNameTextView.setText(mCurrentItem.getName());
+        mQuantityTextView.setText(getString(R.string.quantity_format,mCurrentItem.getQuantity()));
+        mDateTextView.setText(getString(R.string.date_format,mCurrentItem.getDeliveryDateString()));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //boolerplate code!
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -37,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+//TODO create some code for menus
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
