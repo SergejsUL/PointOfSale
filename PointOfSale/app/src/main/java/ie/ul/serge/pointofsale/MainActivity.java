@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -12,8 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,10 +57,27 @@ public class MainActivity extends AppCompatActivity {
        // builder.setTitle(R.string.add_item);
         View view = getLayoutInflater().inflate(R.layout.dialog_add,null,false);
         builder.setView(view);
+        //get values from the input fields and store them. They have to be final as they will be used in the inner class.
+        final EditText nameEditText = view.findViewById(R.id.edit_name);
+        final EditText quantityEditText = view.findViewById(R.id.edit_quantity);
+        final CalendarView deliveryDateView = view.findViewById(R.id.calendar_view);
+        final GregorianCalendar callendar = new GregorianCalendar();
+
+        deliveryDateView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                callendar.set(year,month,dayOfMonth);
+            }
+        });
+
+
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+            String name = nameEditText.getText().toString();
+            int quantity = Integer.parseInt(quantityEditText.getText().toString());
+            mCurrentItem = new Item(name,quantity,callendar);
+            showCurrentItem();
             }
         });
         builder.setNegativeButton(android.R.string.cancel,null);
