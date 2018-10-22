@@ -15,4 +15,7 @@
     <string name="reset">Reset</string>
     <string name="search">search</string>
     <string name="pick_item_from_list">Pick item from the list</string>
+    <string name="action_clear_all">Clear all</string>
+    <string name="remove_items_dialogue_title">Remove</string>
+    <string name="remove_items_message">Are you sure you want to remove all items?</string>
 </resources>
