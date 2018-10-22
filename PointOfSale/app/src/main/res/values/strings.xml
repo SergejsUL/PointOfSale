@@ -8,9 +8,11 @@
     <string name="name_start">Name</string>
     <string name="quantity_start">Quantity</string>
     <string name="date_start">Delivery date</string>
-    <string name="reset">Reset</string>
     <string name="remove">Remove</string>
     <string name="confirmation_dialog_message">Are you sure you want to remove all items?</string>
     <string name="edit">Edit</string>
     <string name="add_item">Add New Item</string>
+    <string name="reset">Reset</string>
+    <string name="search">search</string>
+    <string name="pick_item_from_list">Pick item from the list</string>
 </resources>
