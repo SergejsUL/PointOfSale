@@ -1,5 +1,6 @@
 package ie.ul.serge.pointofsale;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -10,12 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mNameTextView,mQuantityTextView,mDateTextView;
-    private Item mCurrentItem;
+    private Item mCurrentItem,mDeletedItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +61,20 @@ public class MainActivity extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.action_reset:
+                mDeletedItem=mCurrentItem;
                 mCurrentItem=new Item();
                 showCurrentItem();
 
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator_layout),"Item cleared",Snackbar.LENGTH_LONG);
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCurrentItem=  mDeletedItem;
+                        showCurrentItem();
+                    }
+                });
+
+                snackbar.show();
                 return true;
 
             case R.id.action_settings:
